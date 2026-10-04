@@ -1,3 +1,4 @@
+import logging
 import os
 import json
 from datetime import date
@@ -8,7 +9,7 @@ import psycopg2
 import streamlit as st
 from dotenv import load_dotenv
 
-from analytics_data import AnalyticsData, load_analytics_data
+from analytics_data import AnalyticsData, AnalyticsDataLoadError, load_analytics_data
 from export_service import (
     discussions_frame,
     export_chart,
@@ -40,6 +41,7 @@ PRICE_BANDS = {
     "MXN 20M o más": (20_000_000, None),
 }
 KPI_TARGETS = {"properties_added": 20, "appointments": 10}
+PROPERTY_PAGE_SIZE = 50
 
 
 def connect():
@@ -112,7 +114,9 @@ def build_query_filters(state, property_type, source_name, min_price, max_price)
     return ("WHERE " + " AND ".join(clauses)) if clauses else "", params
 
 
-def load_properties(state, property_type, source_name, min_price, max_price):
+def load_properties(state, property_type, source_name, min_price, max_price, limit, offset):
+    if limit < 1 or offset < 0:
+        raise ValueError("Property pagination requires a positive limit and non-negative offset.")
     where_clause, params = build_query_filters(state, property_type, source_name, min_price, max_price)
     query = f"""
         SELECT id, listing_id, source_name, source_url, title, description, price, currency,
@@ -122,7 +126,83 @@ def load_properties(state, property_type, source_name, min_price, max_price):
                CASE WHEN price < 2000000 THEN '<2M' WHEN price < 5000000 THEN '2M-5M'
                     WHEN price < 10000000 THEN '5M-10M' WHEN price < 20000000 THEN '10M-20M'
                     ELSE '20M+' END AS price_band
-        FROM properties {where_clause} ORDER BY price DESC NULLS LAST;
+        FROM properties {where_clause} ORDER BY price DESC NULLS LAST LIMIT %s OFFSET %s;
+    """
+    with connect() as conn:
+        return pd.read_sql_query(query, conn, params=[*params, limit, offset])
+
+
+def load_property_summary(state, property_type, source_name, min_price, max_price):
+    where_clause, params = build_query_filters(state, property_type, source_name, min_price, max_price)
+    query = f"""
+        SELECT COUNT(*) AS total_count,
+               COUNT(*) FILTER (
+                   WHERE LOWER(BTRIM(COALESCE(legal_status, ''))) IN ('', 'manual_review', 'pending', 'unknown')
+               ) AS legal_review_count,
+               percentile_cont(0.5) WITHIN GROUP (ORDER BY price) AS median_price
+        FROM properties {where_clause};
+    """
+    with connect() as conn:
+        summary = pd.read_sql_query(query, conn, params=params).iloc[0]
+    return {
+        "total_count": int(summary["total_count"]),
+        "legal_review_count": int(summary["legal_review_count"]),
+        "median_price": summary["median_price"],
+    }
+
+
+def load_priority_listings(state, property_type, source_name, min_price, max_price):
+    where_clause, params = build_query_filters(state, property_type, source_name, min_price, max_price)
+    query = f"""
+        WITH filtered AS (
+            SELECT title, state, price, property_type, source_name, source_url, listing_status, legal_status
+            FROM properties {where_clause}
+        ),
+        baseline AS (
+            SELECT AVG(price) AS average_price FROM filtered
+        ),
+        scored AS (
+            SELECT filtered.title, filtered.state, filtered.price, filtered.property_type,
+                   filtered.source_name, filtered.source_url,
+                   LEAST(99, GREATEST(15, ROUND((
+                       CASE
+                           WHEN baseline.average_price IS NULL OR baseline.average_price <= 0 OR filtered.price IS NULL THEN 50
+                           ELSE 55 + GREATEST(
+                               0,
+                               1 - ABS(filtered.price - baseline.average_price) / baseline.average_price
+                           ) * 35
+                       END
+                       + CASE REPLACE(LOWER(COALESCE(filtered.source_name, '')), ' ', '_')
+                           WHEN 'public_registry_mx' THEN 22
+                           WHEN 'mercado_libre_inmuebles' THEN 18
+                           WHEN 'propiedades.com' THEN 18
+                           WHEN 'icasas.mx' THEN 15
+                           WHEN 'vibe_anuncios' THEN 12
+                           WHEN 'mitula_mexico' THEN 10
+                           WHEN 'casas_y_terrenos' THEN 8
+                           WHEN 'lamudi_mexico' THEN 6
+                           WHEN 'vive_anuncios' THEN 5
+                           ELSE 10
+                       END
+                       + CASE
+                           WHEN LOWER(COALESCE(filtered.listing_status, '')) IN
+                               ('nuevo', 'new', 'active', 'available', 'disponible') THEN 15
+                           ELSE 5
+                       END
+                       + CASE
+                           WHEN LOWER(COALESCE(filtered.legal_status, '')) IN
+                               ('libre', 'clear', 'sin gravamen', 'sin carga') THEN 10
+                           ELSE 0
+                       END
+                       + CASE WHEN BTRIM(COALESCE(filtered.state, '')) <> '' THEN 5 ELSE 0 END
+                   ) * 99.0 / 142.0)))::INTEGER AS priority_score
+            FROM filtered CROSS JOIN baseline
+        )
+        SELECT title, state, price, property_type, source_name, source_url, priority_score,
+               MAX(priority_score) OVER () AS max_priority_score
+        FROM scored
+        ORDER BY priority_score DESC, price ASC NULLS LAST
+        LIMIT 5;
     """
     with connect() as conn:
         return pd.read_sql_query(query, conn, params=params)
@@ -164,6 +244,55 @@ def render_listing_detail(data):
     notes = execute("SELECT note, status, next_follow_up, created_at FROM property_followups WHERE property_id = %s ORDER BY created_at DESC", (selected_id,), True)
     if notes:
         st.dataframe(pd.DataFrame(notes, columns=["note", "status", "next_follow_up", "created_at"]), use_container_width=True, hide_index=True)
+
+
+def render_product_story(summary, priority_df):
+    st.subheader("Orden de revisión")
+    st.caption(
+        "Índice experimental no validado (0-99): si hay precio, lo compara con el promedio de los resultados filtrados; "
+        "también aplica una ponderación fija por fuente y considera estatus del anuncio, estatus legal informado "
+        "y ubicación registrada. Normaliza esas señales para evitar que el puntaje se sature en 99. "
+        "No mide riesgo ni potencial de inversión, no usa comparables locales ni verifica los datos."
+    )
+
+    if summary["total_count"] == 0:
+        st.info("No hay propiedades en este filtro. Ajusta los rangos para crear un pipeline priorizado.")
+        return
+
+    st.markdown("### Resumen ejecutivo")
+    max_score = int(priority_df["max_priority_score"].iloc[0])
+    summary_cols = st.columns(4)
+    summary_cols[0].metric("Propiedades en el filtro", f"{summary['total_count']:,}")
+    summary_cols[1].metric("Mayor puntaje heurístico", f"{max_score}", help="Índice experimental no validado; no es una medida de riesgo ni una recomendación de inversión.")
+    summary_cols[2].metric("Estatus legal por revisar", f"{summary['legal_review_count']:,}", help="Registros marcados como manual_review, pending, unknown o sin estatus.")
+    median_price = summary["median_price"]
+    summary_cols[3].metric("Precio mediano publicado", f"MXN {median_price:,.0f}" if pd.notna(median_price) else "Sin datos")
+    st.info("Antes de contactar, confirma que el anuncio siga vigente, valida el precio con comparables locales y revisa la documentación por separado.")
+
+    st.markdown("### Anuncios ordenados por índice experimental")
+    for position, (_, item) in enumerate(priority_df.iterrows(), start=1):
+        with st.container(border=True):
+            cols = st.columns([3.2, 1.3, 1.4, 1.3])
+            with cols[0]:
+                st.markdown(f"**{item['title'] or 'Propiedad sin título'}**")
+                price_label = f"MXN {float(item['price']):,.0f}" if pd.notna(item["price"]) else "Precio no disponible"
+                st.caption(
+                    f"{item['property_type'] or 'Sin tipo'} • {item['state'] or 'Sin estado'} • "
+                    f"{item['source_name'] or 'Sin fuente'} • {price_label}"
+                )
+            with cols[1]:
+                st.caption(f"Orden orientativo: {position}")
+            with cols[2]:
+                st.metric("Puntaje heurístico", f"{int(item['priority_score'])}")
+            with cols[3]:
+                if item.get("source_url"):
+                    st.link_button("Ver anuncio", item["source_url"])
+                else:
+                    st.caption("Sin enlace")
+            st.caption(
+                "Verifica la vigencia del anuncio, compáralo con propiedades similares de la zona "
+                "y revisa la documentación antes de contactar."
+            )
 
 
 def render_alliances():
@@ -478,6 +607,9 @@ def render_analytics(analytics):
     st.header("Análisis y hallazgos")
     if analytics.is_demo:
         st.info("Se muestran datos demo aislados porque todavía no hay registros importados en community_content.")
+    elif analytics.quick_stats.questions.value == 0:
+        st.info("No hay registros en community_content. Importa datos para ver análisis y hallazgos.")
+        return
     render_quick_stats(analytics)
     date_range, location, source, intent, sentiment = render_analytics_filters(analytics)
     st.caption(f"Periodo activo: {date_range}")
@@ -495,6 +627,9 @@ def render_analytics(analytics):
 def render_trends(analytics):
     st.header("Tendencias emergentes")
     st.caption("Las tendencias muestran por defecto los últimos 90 días. Las explicaciones requieren una fuente verificada antes de tomar decisiones de producción.")
+    if analytics.quick_stats.questions.value == 0:
+        st.info("No hay registros en community_content. Importa datos para ver tendencias.")
+        return
     for trend in analytics.trends:
         with st.container(border=True):
             direction = "↑" if trend.direction == "up" else "↓" if trend.direction == "down" else "→"
@@ -533,8 +668,72 @@ def render_trends(analytics):
 
 
 st.set_page_config(page_title="Operaciones inmobiliarias de México", page_icon="MX", layout="wide")
+
+st.markdown(
+    """
+    <style>
+    .block-container {
+        padding-top: 2rem;
+    }
+    .story-card {
+        padding: 1rem 1.2rem;
+        border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+        border-radius: 0.9rem;
+        background: transparent;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 640px) {
+        [data-testid="stAppViewContainer"] button,
+        [data-testid="stHeader"] button,
+        [data-testid="stSidebar"] button,
+        [data-testid="stSidebarCollapseButton"] button {
+            box-sizing: border-box;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        [data-testid="stAppViewContainer"] a[kind],
+        [data-testid="stSidebar"] a[kind] {
+            box-sizing: border-box;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        [data-testid="stAppViewContainer"] input:not([type="radio"]):not([type="checkbox"]),
+        [data-testid="stAppViewContainer"] textarea {
+            box-sizing: border-box;
+            min-height: 44px;
+        }
+        [data-testid="stAppViewContainer"] a[href^="#"] {
+            box-sizing: border-box;
+            min-width: 44px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        [data-testid="stSelectbox"] [role="group"] {
+            min-height: 44px;
+        }
+        [data-testid="stSelectbox"] input[role="combobox"] {
+            box-sizing: border-box;
+            min-height: 44px;
+            width: calc(100% - 44px);
+        }
+        [data-testid="stSelectbox"] [role="group"] > button {
+            flex: 0 0 44px;
+            min-height: 44px;
+        }
+        [data-testid="stRadioOption"] {
+            min-height: 44px;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("Operaciones inmobiliarias de México")
-st.caption("Propiedades, relaciones, metas, inteligencia, monitoreo e investigación conforme a la normativa")
+st.caption("Conviértete en el comando central de oportunidades, relaciones y mercado inmobiliario en México.")
 
 try:
     ensure_operational_tables()
@@ -546,7 +745,8 @@ except Exception as error:
     st.stop()
 
 with st.sidebar:
-    workspace = st.radio("Área de trabajo", ["Operaciones", "Análisis y hallazgos", "Tendencias"], key="workspace")
+    st.markdown("<div class='story-card'><strong>Centro operativo</strong><br>Prioriza oportunidades, contacta aliados y monitorea mercado.</div>", unsafe_allow_html=True)
+    workspace = st.radio("Línea de trabajo", ["Panel principal", "Análisis y hallazgos", "Tendencias"], key="workspace")
     st.header("Filtros de propiedades")
     selected_state = st.selectbox("Estado", ["Todos los estados", *states])
     selected_type = st.selectbox("Tipo de propiedad", ["Todos los tipos de propiedad", *property_types])
@@ -560,27 +760,69 @@ min_price, max_price = PRICE_BANDS[selected_band]
 
 try:
     validate_filters(state_filter, min_price, max_price)
-    data = load_properties(state_filter, type_filter, source_filter, min_price, max_price)
 except Exception as error:
-    st.error(f"No se pudieron cargar los datos de propiedades: {error}")
+    st.error(f"Los filtros de propiedades no son válidos: {error}")
     st.stop()
 
-analytics = load_analytics_data(connect)
-
-if workspace == "Análisis y hallazgos":
-    render_analytics(analytics)
-elif workspace == "Tendencias":
-    render_trends(analytics)
+if workspace in {"Análisis y hallazgos", "Tendencias"}:
+    try:
+        analytics = load_analytics_data(connect)
+    except AnalyticsDataLoadError:
+        logging.exception("Unable to load analytics data")
+        st.error(
+            "No se pudieron cargar los datos de análisis. Verifica la conexión a PostgreSQL "
+            "y que la tabla community_content esté disponible; después, vuelve a intentarlo."
+        )
+        st.stop()
+    if workspace == "Análisis y hallazgos":
+        render_analytics(analytics)
+    else:
+        render_trends(analytics)
 else:
-    metric_columns = st.columns(4)
-    metric_columns[0].metric("Propiedades", f"{len(data):,}")
-    metric_columns[1].metric("Precio promedio", f"MXN {data['price'].mean():,.0f}" if not data.empty else "-")
-    metric_columns[2].metric("Fuentes", f"{data['source_name'].nunique():,}")
-    metric_columns[3].metric("Tipos de propiedad", f"{data['property_type'].nunique():,}")
+    try:
+        property_summary = load_property_summary(
+            state_filter, type_filter, source_filter, min_price, max_price
+        )
+        priority_listings = load_priority_listings(
+            state_filter, type_filter, source_filter, min_price, max_price
+        )
+    except Exception as error:
+        st.error(f"No se pudieron cargar los datos de propiedades: {error}")
+        st.stop()
 
-    tabs = st.tabs(["Propiedades", "Alianzas", "Indicadores", "Inteligencia de negocio", "Alertas de monitoreo", "Búsqueda avanzada"])
+    render_product_story(property_summary, priority_listings)
+
+    tabs = st.tabs(["Pipeline", "Alianzas", "Indicadores", "Mercado", "Alertas", "Búsqueda"])
     with tabs[0]:
-        st.subheader("Anuncios interactivos")
+        st.subheader("Pipeline de oportunidades")
+        total_count = property_summary["total_count"]
+        page_count = max(1, (total_count + PROPERTY_PAGE_SIZE - 1) // PROPERTY_PAGE_SIZE)
+        current_page = min(int(st.session_state.get("property_page", 1)), page_count)
+        st.session_state["property_page"] = current_page
+        page = st.number_input(
+            "Página de propiedades",
+            min_value=1,
+            max_value=page_count,
+            value=current_page,
+            step=1,
+            key="property_page",
+        )
+        start = (page - 1) * PROPERTY_PAGE_SIZE + 1 if total_count else 0
+        end = min(page * PROPERTY_PAGE_SIZE, total_count)
+        st.caption(f"Mostrando {start:,}–{end:,} de {total_count:,} propiedades.")
+        try:
+            data = load_properties(
+                state_filter,
+                type_filter,
+                source_filter,
+                min_price,
+                max_price,
+                limit=PROPERTY_PAGE_SIZE,
+                offset=(page - 1) * PROPERTY_PAGE_SIZE,
+            )
+        except Exception as error:
+            st.error(f"No se pudo cargar esta página de propiedades: {error}")
+            st.stop()
         display_columns = ["id", "title", "state", "municipality", "property_type", "price", "price_band", "source_name", "listing_status"]
         st.dataframe(data[display_columns], use_container_width=True, hide_index=True)
         render_listing_detail(data)

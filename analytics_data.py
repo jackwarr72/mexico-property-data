@@ -126,6 +126,10 @@ class AnalyticsData:
 ConnectionFactory = Callable[[], object]
 
 
+class AnalyticsDataLoadError(RuntimeError):
+    """Raised when analytics cannot be loaded from the configured provider."""
+
+
 def demo_analytics_data() -> AnalyticsData:
     today = date.today()
     sentiment = []
@@ -188,6 +192,18 @@ def demo_analytics_data() -> AnalyticsData:
     )
 
 
+def empty_analytics_data() -> AnalyticsData:
+    return AnalyticsData(
+        quick_stats=QuickStats(
+            questions=Metric(0),
+            sources=Metric(0),
+            topics=Metric(0),
+            sentiment=SentimentMetric(0, "neutral"),
+        ),
+        is_demo=False,
+    )
+
+
 def _parse_json_list(value: object) -> list[str]:
     if not value:
         return []
@@ -211,10 +227,12 @@ def load_analytics_data(connection_factory: ConnectionFactory) -> AnalyticsData:
     try:
         with connection_factory() as connection:
             frame = pd.read_sql_query(query, connection)
-    except Exception:
-        return demo_analytics_data()
+    except Exception as error:
+        raise AnalyticsDataLoadError(
+            "Unable to load analytics from community_content"
+        ) from error
     if frame.empty:
-        return demo_analytics_data()
+        return empty_analytics_data()
     return build_analytics_from_content(frame)
 
 
