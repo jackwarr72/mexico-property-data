@@ -27,10 +27,24 @@ if ([int]$tablesExist.Trim() -lt 9) {
 
 if (-not (Test-Path ".venv\Scripts\python.exe")) {
     python -m venv .venv
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to create the Python virtual environment (exit code $LASTEXITCODE)."
+    }
 }
 
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+if ($LASTEXITCODE -ne 0) {
+    throw "Dependency installation failed (exit code $LASTEXITCODE)."
+}
+
 .\.venv\Scripts\python.exe ingest_sources.py
+if ($LASTEXITCODE -ne 0) {
+    throw "Source ingestion failed (exit code $LASTEXITCODE)."
+}
+
 .\.venv\Scripts\python.exe import_to_postgres.py
+if ($LASTEXITCODE -ne 0) {
+    throw "Import to PostgreSQL failed (exit code $LASTEXITCODE)."
+}
 
 Write-Host "Pipeline completed successfully."
