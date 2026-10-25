@@ -1,0 +1,19 @@
+[[epic]]
+id = 1
+slug = "epic-analytics-real-data"
+
+[[epic]]
+id = 2
+slug = "epic-enhanced-exports"
+
+[[epic]]
+id = 3
+slug = "epic-mobile-responsiveness"
+
+[[epic]]
+id = 4
+slug = "epic-data-quality-review"
+
+[[epic]]
+id = 5
+slug = "epic-operational-enhancements"

@@ -1,0 +1,1157 @@
+===== PAGE 1 =====
+USO INTERNO
+M E X I C O   P R O P E R T Y   D A T A   P R O J E C T
+Instructivo del Dashboard de
+Inteligencia Inmobiliaria
+Guía detallada de funciones para capacitación de usuario
+Plantilla ejecutiva · Documento maestro de formación
+Ficha del documento
+DOCUMENTO
+Instructivo de capacitación de usuario
+PROYECTO
+Mexico Property Data Project
+VERSIÓN
+1.0  ·  23 de septiembre de 2026
+DIRIGIDO A
+Analistas, asesores y coordinadores
+ALCANCE
+8 funciones del panel, filtros globales y exportaciones
+FORMATO
+PDF · Plantilla ejecutiva
+USO INTERNO · DIRECCIÓN DE PROYECTO · Prohibida su difusión sin autorización
+v1.0
+
+===== PAGE 2 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Contenido
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 4
+1. Cómo usar este manual
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 4
+1.1 Convenciones
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 4
+1.2 Plan de capacitación sugerido
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 5
+2. ¿Qué es el dashboard?
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 5
+2.1 Para qué sirve
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 5
+2.2 Reglas de cumplimiento que debe conocer
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 6
+3. Arquitectura y flujo de la información
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 6
+3.1 Tablas de datos que usa el dashboard
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8
+4. Requisitos previos e instalación
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8
+4.1 Software necesario
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8
+4.2 Instalación paso a paso
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8
+4.3 Configuración del entorno (.env)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10
+5. Ingreso al dashboard
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10
+5.1 Procedimiento
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 11
+6. Recorrido general de la interfaz y filtros globales
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 11
+6.1 Cómo usar los filtros globales
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13
+7. Guía función por función
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13
+7.1 Propiedades (Properties)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14
+7.2 Alianzas estratégicas (Strategic alliances)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 16
+7.3 KPIs
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 17
+7.4 Inteligencia de negocio (Business intelligence)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 19
+7.5 Alertas de monitoreo (Monitoring alerts)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 20
+7.6 Búsqueda avanzada (Advanced search)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22
+7.7 Analítica / Insights (Analytics / Insights)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 24
+7.8 Tendencias (Trends)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 26
+8. Exportación de resultados
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 26
+8.1 Procedimiento general
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 27
+8.2 Nombres de archivo y destino
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 28
+9. Gestión de la información
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 28
+9.1 ¿Dónde se guarda mi trabajo?
+Página 2 de 33
+
+===== PAGE 3 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 28
+9.2 Datos reales frente a datos de demostración
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 28
+9.3 Importar contenido comunitario autorizado
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 30
+10. Solución de problemas frecuentes
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 31
+Anexo A. Comandos y scripts complementarios
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 31
+A.1 Filtros del market dashboard (CSV)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 32
+Anexo B. Glosario
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 33
+Anexo C. Ejercicios y checklist de capacitación
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 33
+C.1 Ejercicios prácticos (sesión 5)
+  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 33
+C.2 Checklist de competencias
+Página 3 de 33
+
+===== PAGE 4 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+1. Cómo usar este manual
+Este instructivo explica, función por función, cómo trabajar con el dashboard de Inteligencia
+Inmobiliaria del proyecto Mexico Property Data. Cada lección de la sección 7 sigue la misma estructura:
+qué es la función, para qué sirve, cómo acceder a ella, las partes de la pantalla, un procedimiento paso
+a paso, un ejemplo práctico y sus buenas prácticas.
+1.1 Convenciones
+Marca
+Significado
+NOTA
+Información complementaria o aclaración conceptual.
+CONSEJO
+Recomendación para trabajar más rápido o con mejor resultado.
+ADVERTENCIA
+Riesgo, regla de cumplimiento legal o acción que debe evitarse.
+Los nombres de los espacios de trabajo se muestran en este manual en español, con su equivalente en
+inglés tal como aparece documentado en el proyecto (por ejemplo «Propiedades (Properties)»). Si su
+instalación muestra las etiquetas en inglés, use la tabla de la sección 6 como traductor.
+1.2 Plan de capacitación sugerido
+Sesión
+Duración
+Contenido
+Meta de aprendizaje
+1
+45 min
+Secciones 2 a 5
+Entender el flujo de datos y poder iniciar el dashboard
+sin ayuda.
+2
+60 min
+Sección 6 y 7.1 a 7.3
+Moverse por la interfaz y operar Propiedades, Alianzas
+y KPIs.
+3
+60 min
+7.4 a 7.6
+Interpretar la inteligencia de negocio, atender alertas
+y construir búsquedas.
+4
+45 min
+7.7, 7.8 y sección 8
+Leer Analítica y Tendencias y exportar reportes
+completos.
+5
+30 min
+Anexo C
+Resolver los ejercicios y firmar el checklist de
+competencias.
+Página 4 de 33
+
+===== PAGE 5 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+2. ¿Qué es el dashboard?
+El dashboard es una aplicación interactiva (construida con Streamlit y respaldada por PostgreSQL) que
+concentra la información inmobiliaria recopilada por el pipeline del proyecto y la convierte en
+herramientas de trabajo diario: listados de propiedades, directorio de contactos estratégicos,
+seguimiento de indicadores (KPIs), alertas de mercado, búsqueda asistida, analítica de comunidad y
+tendencias.
+2.1 Para qué sirve
+ Decidir con datos: consultar oferta, precios y fuentes sin hojas de cálculo dispersas.
+ Dar seguimiento comercial: guardar notas por propiedad y administrar la agenda de citas con
+KPIs diarios.
+ Detectar oportunidades: alertas de palabras clave como «Urgent Sale» y «Reduction Price» en
+contenido autorizado.
+ Preparar reportes: exportar la vista actual o un reporte ejecutivo completo en CSV, Excel, PDF,
+JSON, PNG o SVG.
+ Escuchar al mercado: analítica de preguntas, sentimiento y preocupaciones de la comunidad, y
+tendencias emergentes.
+2.2 Reglas de cumplimiento que debe conocer
+El proyecto solo utiliza datos con acceso legal explícito, condición de socio, licencia de datos públicos o
+exportaciones autorizadas y revisadas. El dashboard hereda estas reglas:
+  No se extraen portales de consumo restringidos (por ejemplo Inmuebles24, Lamudi o Mercado Libre)
+sin acceso de socio o API oficial.
+ No se rastrean cuentas ni grupos privados, no se evita autenticación ni controles técnicos y se
+respetan las reglas de robots y los límites de frecuencia.
+ Las redes sociales (Facebook, X/Twitter, TikTok, YouTube) solo se incorporan mediante sus APIs
+oficiales con la autorización requerida o exportaciones revisadas.
+ La información oficial de programas de vivienda se almacena separada del contenido generado por
+usuarios mediante los campos source_type y legal_status.
+ADVERTENCIA: Si un proveedor le entrega un archivo que no proviene de una fuente autorizada, no lo
+importe. Registre la situación con el responsable de cumplimiento antes de cualquier ingesta.
+Página 5 de 33
+
+===== PAGE 6 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+3. Arquitectura y flujo de la información
+Antes de operar el dashboard conviene entender de dónde vienen los datos. El sistema es una cadena
+de cinco pasos:
+ Figura 1. Flujo de información: de las fuentes autorizadas al dashboard y sus exportaciones.
+1. Fuentes autorizadas. El registro sources.json describe las fuentes de propiedades y
+community_sources.json las comunidades y contenidos públicos, cada uno con su base legal,
+método de acceso y política de rastreo.
+2. Ingesta y normalización. ingest_sources.py lee los archivos colocados en data/raw, normaliza los
+campos según property_schema.json y community_content_schema.json, deduplica registros y
+escribe CSV en data/export.
+3. Base de datos PostgreSQL. import_to_postgres.py carga los CSV en las tablas principales (ver
+tabla siguiente).
+4. Dashboard Streamlit. streamlit_app.py consulta PostgreSQL en vivo y presenta los 8 espacios de
+trabajo con filtros, gráficos y formularios.
+5. Exportaciones. Analítica y Tendencias generan archivos en data/exports y registran cada trabajo
+en la tabla export_history.
+3.1 Tablas de datos que usa el dashboard
+Tabla
+Contenido
+Creada por
+properties
+Propiedades normalizadas (esquema
+property_schema.json).
+db_schema.sql /
+import_to_postgres.py
+community_content
+Publicaciones, preguntas, discusiones y comentarios
+autorizados.
+db_schema.sql /
+import_to_postgres.py
+Página 6 de 33
+
+===== PAGE 7 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Tabla
+Contenido
+Creada por
+source_registry
+Registro y metadatos de cumplimiento de cada fuente.
+db_schema.sql /
+import_to_postgres.py
+property_followups
+Notas de seguimiento por propiedad.
+Primer lanzamiento del
+dashboard
+alliance_contacts
+Contactos del directorio de alianzas estratégicas.
+Primer lanzamiento del
+dashboard
+kpi_entries
+Registros diarios de KPIs.
+Primer lanzamiento del
+dashboard
+monitoring_alerts
+Palabras clave y coincidencias de alertas.
+Primer lanzamiento del
+dashboard
+export_history
+Historial de trabajos de exportación.
+Primer uso de exportaciones
+NOTA: Las cuatro tablas operativas (property_followups, alliance_contacts, kpi_entries y monitoring_alerts)
+se crean automáticamente en el primer arranque del dashboard: no requiere ejecutar SQL adicional.
+Página 7 de 33
+
+===== PAGE 8 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+4. Requisitos previos e instalación
+4.1 Software necesario
+ Python 3.10 o superior.
+ Docker (para levantar PostgreSQL 16 localmente).
+ Terminal: PowerShell en Windows; Bash en macOS o Linux.
+4.2 Instalación paso a paso
+1. Entorno virtual. Desde la raíz del proyecto cree y active el entorno:
+python -m venv .venv
+source .venv/bin/activate        # macOS / Linux
+# .venv\Scripts\activate         # Windows
+pip install -r requirements.txt
+1. Base de datos. Inicie el contenedor de PostgreSQL y aplique el esquema:
+docker run --name mexico-property-db \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=property_data -p 5432:5432 -d postgres:16-alpine
+docker cp db_schema.sql mexico-property-db:/tmp/db_schema.sql
+docker exec mexico-property-db psql -U postgres -d property_data -f /tmp/db_schema.sql
+4.3 Configuración del entorno (.env)
+La aplicación y el dashboard leen la configuración de PostgreSQL de variables de entorno. Cree un
+archivo .env en la raíz del proyecto:
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=property_data
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+Variable
+Valor por defecto
+Cuándo cambiarla
+POSTGRES_HOST
+localhost
+Si la base de datos corre en otro equipo o contenedor.
+POSTGRES_PORT
+5432
+Si el puerto ya está ocupado en su equipo.
+POSTGRES_DB
+property_data
+Si su empresa usa otro nombre de base.
+POSTGRES_USER
+postgres
+Al usar un usuario dedicado en lugar del superusuario.
+POSTGRES_PASSWORD
+postgres
+Siempre que se use fuera de un entorno local de pruebas.
+Página 8 de 33
+
+===== PAGE 9 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+CONSEJO: En Windows, el script run_pipeline.ps1 ejecuta todos los pasos anteriores en un solo comando;
+en macOS/Linux use run_pipeline.sh. Ambos crean el contenedor, aplican el esquema, preparan el entorno
+virtual, instalan dependencias e importan los datos.
+Página 9 de 33
+
+===== PAGE 10 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+5. Ingreso al dashboard
+ Figura 2. Puesta en marcha: primero el pipeline, después la aplicación Streamlit.
+El ingreso tiene dos momentos: preparar los datos (una vez al día o cuando hay datos nuevos) y lanzar
+la interfaz.
+5.1 Procedimiento
+1. Preparar datos y base de datos. Ejecute el script todo-en-uno desde la raíz del proyecto:
+./run_pipeline.sh              # macOS / Linux
+./run_pipeline.ps1             # Windows PowerShell
+1. Lanzar el dashboard. Con el entorno virtual activo:
+./.venv/bin/python -m streamlit run streamlit_app.py   # macOS / Linux
+./.venv/Scripts/python.exe -m streamlit run streamlit_app.py   # Windows
+1. Abrir el navegador. La terminal muestra la dirección; normalmente http://localhost:8501.
+2. Cerrar la sesión de trabajo. Presione Ctrl+C en la terminal. PostgreSQL sigue disponible en
+Docker para el próximo arranque.
+CONSEJO: Si los datos ya están importados, puede saltar el paso 1 y ejecutar únicamente el comando de
+Streamlit.
+NOTA: La primera vez que entra, el dashboard crea sus tablas operativas (sección 3.1) y muestra datos de
+demostración claramente etiquetados cuando aún no hay contenido comunitario importado (sección 9.2).
+Página 10 de 33
+
+===== PAGE 11 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+6. Recorrido general de la interfaz y filtros globales
+Todos los espacios de trabajo comparten la misma estructura. Familiarízarse con ella una sola vez
+permite aprender las ocho funciones con mayor rapidez.
+ Figura 3. Elementos generales de la interfaz (las numeraciones se explican en la tabla siguiente).
+N.º
+Elemento
+Descripción
+1
+Selector de espacios de
+trabajo
+Barra lateral izquierda: lista los 8 módulos (Propiedades, Alianzas
+estratégicas, KPIs, Inteligencia de negocio, Alertas de monitoreo, Búsqueda
+avanzada, Analítica / Insights y Tendencias). El elemento activo queda
+resaltado.
+2
+Filtros globales
+Tres selectores bajo el selector de módulos: Estado, Tipo de propiedad y
+Rango de precio. Se aplican a tablas, gráficos y exportaciones de todo el
+dashboard.
+3
+Encabezado del espacio
+Título del módulo y descripción corta de su propósito.
+4
+Tarjetas de métricas
+Resumen numérico de la vista actual (totales, seguimiento, alertas, citas,
+etc.).
+5
+Gráficos
+Visualizaciones de la actividad del mercado según el módulo.
+6
+Tablas interactivas
+Resultados filtrados; al hacer clic se abren detalles o acciones.
+7
+Exportación rápida
+Botones de exportación de la vista actual en seis formatos (sección 8).
+6.1 Cómo usar los filtros globales
+Página 11 de 33
+
+===== PAGE 12 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+1. Elija el Estado (por ejemplo Estado de México o Ciudad de México) o déjelo en «Todos».
+2. Elija el Tipo de propiedad (casa, departamento, terreno, etc.).
+3. Elija el Rango de precio (banda de mercado de su interés).
+4. Observe el efecto inmediato: métricas, gráficos y tablas se recalculan al instante; las
+exportaciones respetan la misma selección.
+Ejemplo: para preparar una reunión sobre casas de gama media en el Valle de Toluca, seleccione
+Estado = «Estado de México», Tipo = «Casa» y Rango = «$3 000 000 – $6 000 000». Todo lo que
+exporte después quedará acotado a ese segmento y el nombre del archivo lo reflejará.
+CONSEJO: Si una tabla aparece vacía, revise primero los filtros: el filtro más restrictivo suele ser el rango de
+precio.
+Página 12 de 33
+
+===== PAGE 13 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+7. Guía función por función
+7.1 Propiedades (Properties)
+Qué es:
+El espacio de trabajo principal. Reúne el listado interactivo de inmuebles normalizados, la ficha
+detallada de cada propiedad y las notas de seguimiento comercial que el equipo persiste en la base de
+datos.
+Para qué sirve:
+ Revisar la oferta disponible con sus filtros de mercado.
+ Consultar todos los atributos de un inmueble en una sola ficha.
+ Registrar el avance comercial de cada oportunidad (notas de seguimiento guardadas).
+ Figura 4. Espacio Propiedades: listado interactivo, ficha del inmueble y notas de seguimiento.
+Partes de la pantalla:
+Componente
+Función
+Listado de propiedades
+Tabla interactiva con ID, título, municipio, tipo y precio. Cada fila corresponde a un
+inmueble normalizado.
+Ficha de la propiedad
+Al seleccionar una fila se despliega el detalle completo: ubicación, precio, superficie,
+recámaras, fuente y URL original de la publicación.
+Notas de seguimiento
+Cuaderno persistido por propiedad (tabla property_followups). Muestra el historial
+con fecha.
+Botón «Guardar nota»
+Agrega la nota escrita al historial de la propiedad.
+Página 13 de 33
+
+===== PAGE 14 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Procedimiento — revisar una propiedad y dejar seguimiento:
+1. Abra «Propiedades» en el selector de la barra lateral.
+2. Aplique los filtros globales para acotar el listado a su mercado.
+3. Haga clic en la fila del inmueble de interés: la ficha se completa a la derecha.
+4. Lea la ficha: verifique precio, superficie y la fuente antes de prometer información al cliente.
+5. Escriba la nota de seguimiento en el cuadro de notas (por ejemplo: «Cliente interesado, solicita
+visita el sábado»).
+6. Presione «Guardar nota»: queda registrada con fecha en el historial de la propiedad.
+Ejemplo práctico:
+Ana, asesora en Metepec, filtra por «Estado de México / Casa / $3M–$6M», identifica la propiedad
+P-1042 («Casa con jardín en Metepec»), observa en la fuente que proviene de un portal con convenio y
+registra dos notas en días sucesivos. Al retomar la conversación con su cliente el sábado, lee el historial
+y continúa exactamente donde lo dejó.
+Buenas prácticas:
+ Escriba la fecha real del contacto dentro de la nota y datos accionables (cliente, horario, oferta).
+ Revise la URL original solo para verificar información; recuerde que el proyecto no recopila datos de
+portales restringidos.
+ Las notas son visibles para todo el equipo: redacte en lenguaje profesional y sin datos personales
+innecesarios.
+7.2 Alianzas estratégicas (Strategic alliances)
+Qué es:
+Un directorio de contactos del ecosistema inmobiliario: corredores, notarios, valuadores, abogados y
+prestamistas, con su zona de cobertura, datos de contacto y notas de colaboración.
+Para qué sirve:
+ Encontrar en segundos a la persona correcta para cada etapa de la operación (valuación,
+escrituración, crédito, litigio).
+ Mantener un directorio institucional, no listas privadas en el celular de cada asesor.
+Página 14 de 33
+
+===== PAGE 15 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ Figura 5. Alianzas estratégicas: filtros por perfil, directorio y alta de contactos.
+Partes de la pantalla:
+Componente
+Función
+Filtros por perfil
+Chips de selección rápida: Todos, Corredores, Notarios, Valuadores, Abogados y
+Prestamistas.
+Directorio de contactos
+Tabla con nombre, perfil, zona, contacto y notas.
+Formulario «Nuevo
+contacto»
+Alta de un contacto con nombre, perfil, zona de cobertura y teléfono o correo.
+Botón «Guardar contacto»
+Persiste el contacto en la tabla alliance_contacts.
+Panel de consejos
+Recordatorios de uso adecuado de los datos de contacto.
+Procedimiento — dar de alta un contacto:
+1. Abra «Alianzas estratégicas» y revise el filtro por perfil (deje «Todos» si no sabe en qué
+categoría entra).
+2. Complete «Nuevo contacto»: nombre completo, perfil (notario, valuador…), zona de cobertura y
+teléfono o correo.
+3. Agregue una nota de colaboración: alcance del servicio, comisiones acordadas, tiempos
+promedio.
+4. Presione «Guardar contacto» y confirme que la fila aparece en el directorio.
+Ejemplo práctico:
+Página 15 de 33
+
+===== PAGE 16 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Para una operación en Lerma con crédito hipotecario, el coordinador filtra «Valuadores» y
+«Prestamistas», contacta al C.P. Luis Mora (valuaciones Infonavit) y al Sr. J. Ruiz (crédito puente), y
+documenta en las notas los tiempos comprometidos. La próxima operación en la zona parte de esos
+acuerdos.
+Buenas prácticas:
+ Registre únicamente datos de contacto profesionales entregados con consentimiento para este uso.
+ Actualice las notas cuando cambien comisiones o alcance; elimine contactos inactivos con el
+responsable del directorio.
+ Use el filtro por perfil antes de cada operación: agiliza la búsqueda y evita duplicados.
+7.3 KPIs
+Qué es:
+El módulo de registro manual de la actividad diaria del equipo, con comparación automática contra las
+metas del proyecto: 20 o más propiedades capturadas por día y 10 o más citas por semana.
+Para qué sirve:
+ Capturar el desempeño del día en menos de un minuto.
+ Ver de un vistazo si el ritmo de trabajo cumple las metas.
+ Construir la tendencia de los últimos 14 días para juntas de seguimiento.
+ Figura 6. KPIs: registro diario, cumplimiento de metas y tendencia de 14 días.
+Partes de la pantalla:
+Página 16 de 33
+
+===== PAGE 17 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Componente
+Función
+Registro diario
+Formulario con fecha, responsable, propiedades capturadas, citas agendadas,
+llamadas realizadas y avances de negociación.
+Botón «Guardar registro»
+Guarda la fila en la tabla kpi_entries con fecha y usuario.
+Cumplimiento de metas
+Barras comparativas: propiedades por día (meta 20+) y citas por semana (meta
+10+). La marca vertical señala la meta.
+Tendencia · últimos 14 días
+Gráfica de líneas con propiedades y citas, para detectar caídas de ritmo.
+Procedimiento — registrar el día:
+1. Abra «KPIs» al final de su jornada o por la mañana con los datos del día anterior.
+2. Confirme la fecha y el responsable (equipo o persona).
+3. Capture los seis indicadores del día. Use ceros honestos: un dato mal capturado contamina la
+tendencia.
+4. Presione «Guardar registro» y verifique que las barras de meta se actualizan.
+Ejemplo práctico:
+El equipo de Toluca registra el 23/09: 24 propiedades capturadas, 3 citas agendadas, 18 llamadas y 5
+avances de negociación. La barra «Propiedades por día» muestra 24 contra la meta de 20+ en verde;
+en la reunión semanal se compara la línea de citas con la meta de 10+. Donde la línea cae, se acuerda
+un plan de reactivación.
+Buenas prácticas:
+ Capture los KPIs a la misma hora cada día: la serie es más útil si es continua.
+ Las metas 20+ y 10+ son mínimos del proyecto, no techos: el registro admite cualquier valor.
+ Si un día no se capturó, déjelo vacío en lugar de inventar cifras; las gráficas distinguen huecos de
+caídas reales.
+7.4 Inteligencia de negocio (Business intelligence)
+Qué es:
+El espacio de resúmenes ejecutivos de la cartera: cuántos inmuebles aporta cada fuente, cómo se
+distribuye la oferta por tipo de propiedad y en qué rangos de precios se mueve cada fuente.
+Para qué sirve:
+ Concentrarse en las fuentes y tipos de propiedad que mueven el mercado.
+ Comparar precios mínimos, máximos y promedio por fuente para dimensionar el portafolio.
+Página 17 de 33
+
+===== PAGE 18 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ Figura 7. Inteligencia de negocio: volúmenes por fuente, mezcla por tipo y resumen de precios.
+Partes de la pantalla:
+Componente
+Función
+Propiedades por fuente
+Barras con el número de inmuebles aportados por cada fuente registrada.
+Por tipo de propiedad
+Gráfica de dona con la mezcla de la oferta (casa, departamento, terreno, otros).
+Resumen por fuente
+Tabla con registros, precio mínimo, precio máximo y precio promedio por fuente.
+Procedimiento — preparar una lectura de mercado:
+1. Abra «Inteligencia de negocio» y aplique los filtros globales del segmento que le interesa.
+2. Lea la dona de tipos: ¿domina la casa habitación o el departamento en ese segmento?
+3. Compare las barras por fuente: ¿qué fuentes alimentan mejor ese segmento?
+4. Use la tabla de precios para acotar expectativas: cite el rango mínimo–máximo y el promedio, no
+un solo número.
+Ejemplo práctico:
+Con el filtro Estado de México activo, el analista observa que «Portal A (convenio)» aporta 420 registros
+con precio promedio de $3 620 000 y que la dona muestra 46 % de casas. Prepara la conclusión: «el
+segmento medio de casa habitación se alimenta principalmente de Portal A; el gama alta se concentra
+en Convenio C».
+Buenas prácticas:
+ Cite siempre el rango de fechas y los filtros usados junto con sus cifras (el PDF de exportación los
+registra automáticamente).
+Página 18 de 33
+
+===== PAGE 19 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ Un precio promedio sin su mínimo y su máximo induce a error: use la tabla completa.
+ Los nombres de las fuentes responden al registro sources.json; consulte su base legal antes de
+presentar datos fuera de la empresa.
+7.5 Alertas de monitoreo (Monitoring alerts)
+Qué es:
+Un escáner de palabras clave sobre el contenido comunitario autorizado (tabla community_content).
+De fábrica incluye términos como «Urgent Sale» y «Reduction Price», y permite agregar los propios.
+Para qué sirve:
+ Detectar señales de oportunidad: ventas urgentes y reducciones de precio.
+ Vigilar vocabulario propio de su mercado («remate», «liquidación», «urgente»).
+ Figura 8. Alertas de monitoreo: palabras clave, escaneo y tabla de coincidencias.
+Partes de la pantalla:
+Componente
+Función
+Chips de palabras clave
+Términos vigentes; los activos participan en el próximo escaneo.
+Campo «Agregar palabra clave»
+y botón «Agregar»
+Alta de un término nuevo (por ejemplo «Venta urgente» o «Precio reducido»).
+Botón «Ejecutar escaneo»
+Recorre el contenido importado y marca coincidencias nuevas.
+Resumen del escaneo
+Coincidencias del último escaneo, fecha y pendientes por revisar.
+Tabla de coincidencias
+Fecha, término detectado, título, fuente y enlace «Abrir» hacia el contenido de
+origen.
+Página 19 de 33
+
+===== PAGE 20 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Procedimiento — atender la rutina diaria de alertas:
+1. Abra «Alertas de monitoreo» al inicio de la jornada.
+2. Ejecute el escaneo (o confirme el automático del día) y revise el contador de coincidencias
+nuevas.
+3. Recorra la tabla: para cada fila use «Abrir» y califique si es una oportunidad real.
+4. Agregue palabras clave propias si aparecen términos de mercado que las fábricas no cubren.
+5. Derive las oportunidades reales a Propiedades: cree la ficha o nota de seguimiento
+correspondiente.
+Ejemplo práctico:
+El escaneo del 23/09 detecta «Reduction Price» en «Casa en Metepec con descuento» y «Urgent Sale»
+en una venta en Lerma. El asesor abre la fuente, valida que siguen vigentes y deja notas de
+seguimiento; la de Metepec con −12 % de descuento se convierte en visita programada para el
+sábado.
+ADVERTENCIA: Las alertas solo analizan el contenido autorizado ya importado a community_content. No
+rastrean portales restringidos ni cuentas privadas, y cada coincidencia conserva su atribución y enlace de
+origen. No capture en las notas contenido de fuentes no autorizadas.
+Buenas prácticas:
+ Revise las alertas a diario; una coincidencia de «venta urgente» pierde valor en pocos días.
+ Prefiera términos en español y en inglés: el contenido comunitario es bilingüe.
+ Mantenga la lista de palabras clave corta (6–10 términos): demasiados términos diluyen la señal.
+7.6 Búsqueda avanzada (Advanced search)
+Qué es:
+Un constructor de consultas para buscadores públicos. A partir de sus criterios arma una consulta con
+los operadores site:, intitle: e inurl:, y se la entrega lista para copiar o abrir en Google.
+Para qué sirve:
+ Buscar en sitios públicos con precisión quirúrgica, sin memorizar la sintaxis de los operadores.
+ Aplicar la política de cumplimiento del proyecto: la app solo genera el texto de la consulta; usted
+decide dónde ejecutarla y qué hacer con los resultados.
+Página 20 de 33
+
+===== PAGE 21 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ Figura 9. Búsqueda avanzada: constructor de criterios, consulta generada y ayuda de operadores.
+Operadores que genera la herramienta:
+Operador
+Efecto
+Ejemplo
+site:dominio.com
+Limita la búsqueda a un sitio público.
+site:periodico-ejemplo.mx
+intitle: texto (entre comillas para
+frases)
+Exige las palabras en el título de la página.
+intitle:"venta urgente"
+inurl:palabra
+Exige la palabra dentro de la dirección
+(URL) de la página.
+inurl:casa
+"frase exacta" -palabra
+Busca una frase literal y excluye términos.
+"Metepec" -renta
+Procedimiento — construir una consulta:
+1. Abra «Búsqueda avanzada» y escriba la palabra clave general (por ejemplo «venta urgente
+casa»).
+2. Complete los operadores: sitio (site:), texto del título (intitle:) y palabra en la URL (inurl:).
+3. Agregue la ubicación libre (por ejemplo «Metepec»).
+4. Presione «Generar consulta» y lea la vista previa en la caja oscura.
+5. Use «Copiar consulta» para pegarla en su buscador, o «Abrir en Google» para ejecutarla
+directamente.
+Ejemplo práctico:
+Para localizar páginas públicas de un portal de noticias con urgencias de venta de casas en Metepec, la
+herramienta arma:
+Página 21 de 33
+
+===== PAGE 22 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+site:propiedades-ejemplo.mx intitle:"venta urgente" inurl:casa "Metepec"
+El asesor la ejecuta en Google, revisa los resultados manualmente y documenta las oportunidades
+válidas.
+ADVERTENCIA: La búsqueda avanzada no extrae datos automáticamente: genera consultas. Respete los
+términos de uso de cada sitio y no utilice los resultados para alimentar el pipeline sin una revisión de
+cumplimiento.
+Buenas prácticas:
+ Empiece con 2 criterios y agregue operadores si hay demasiados resultados.
+ Use comillas para frases exactas («venta urgente») y ubicaciones («Metepec»).
+ Guarde sus consultas más útiles en el equipo o en un documento compartido del proyecto.
+7.7 Analítica / Insights (Analytics / Insights)
+Qué es:
+El espacio de inteligencia sobre el contenido de la comunidad: estadísticas rápidas, preguntas en
+tendencia, actividad por ubicación, sentimiento a lo largo del tiempo, preocupaciones de intención y
+tarjetas de insight asistidas por IA, con una tabla de discusiones filtrable.
+Para qué sirve:
+ Entender qué pregunta y qué teme el mercado antes de la conversación con el cliente.
+ Detectar cambios de humor del mercado mediante la línea de sentimiento.
+ Generar reportes ejecutivos con la exportación integrada (sección 8).
+ Figura 10. Analítica / Insights: métricas, preguntas, sentimiento, ubicaciones, preocupaciones y tarjetas de insight.
+Página 22 de 33
+
+===== PAGE 23 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Partes de la pantalla:
+Componente
+Función
+Tarjetas de estadísticas rápidas
+Publicaciones, preguntas, discusiones y preocupaciones del conjunto filtrado.
+Preguntas en tendencia
+Las preguntas de la comunidad con mayor actividad reciente.
+Actividad por ubicación
+Volumen de conversación por municipio o colonia.
+Sentimiento en el tiempo
+Series de sentimiento positivo, neutral y negativo (por ejemplo
+abril–septiembre).
+Preocupaciones de intención
+Temas que frenan la compra: plazos de escrituración, crédito Infonavit, estafas
+en enganches.
+Tarjetas de insight (IA)
+Tres lecturas etiquetadas: Datos (qué ocurre), Interpretación (por qué) y
+Oportunidad (qué hacer).
+Discusiones filtrables
+Tabla de resultados que acompaña al conjunto con los filtros activos.
+Insignia de origen
+Cuando community_content está vacío, la vista usa datos de demostración
+deterministas y lo indica con una etiqueta visible.
+Procedimiento — lectura semanal de analítica:
+1. Abra «Analítica / Insights» y aplique los filtros globales (estado, tipo y rango de precio) y el
+periodo de su interés (por ejemplo los últimos 30 días).
+2. Lea las tarjetas de estadísticas y las preguntas en tendencia: son el tema de conversación del
+mercado.
+3. Observe el sentimiento: ¿la línea negativa sube? Anticípese a objeciones en sus próximas visitas.
+4. Revise las preocupaciones de intención y prepare respuestas (por ejemplo, un esquema de
+gastos de escrituración).
+5. Use las tarjetas de insight como hipótesis de trabajo: Datos, Interpretación y Oportunidad.
+6. Exporte la vista (CSV, Excel, PDF, JSON, PNG o SVG) para su reporte semanal (sección 8).
+Ejemplo práctico:
+Con el filtro Metepec y los últimos 30 días, el equipo observa un aumento de preguntas sobre «casas
+con estudio» (+38 %) y que la tarjeta de Interpretación atribuye la tendencia al home-office. La
+Oportunidad sugiere destacar los espacios de trabajo en las fichas; esa semana se actualizan 6 fichas
+de Propiedades y el reporte PDF se comparte con dirección.
+NOTA: Los datos provienen del proveedor aislado analytics_data.py. Con contenido comunitario real
+importado, la analítica se construye desde las filas de PostgreSQL; sin él, la interfaz usa datos de
+demostración claramente etiquetados: nunca presente esos números como hallazgos de mercado sin antes
+importar datos reales.
+Buenas prácticas:
+ Distinga siempre entre dato, interpretación y oportunidad; las tarjetas de IA son apoyo, no dictamen.
+ Combine siempre Analítica con Propiedades: una tendencia sin inventario disponible es solo
+conversación.
+Página 23 de 33
+
+===== PAGE 24 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+ Verifique la insignia de origen antes de exportar: si dice «datos de demostración», el reporte es solo
+una muestra del formato.
+7.8 Tendencias (Trends)
+Qué es:
+La vista de largo aliento del mercado: tendencias emergentes, evolución de los temas durante los
+últimos 90 días y un ranking de colonias que se reordena dinámicamente con cada importación de
+contenido autorizado.
+NOTA: El dashboard Streamlit no expone rutas de URL; Tendencias es un espacio de trabajo dedicado
+dentro del selector de la barra lateral (no una dirección como /trends).
+ Figura 11. Tendencias: temas emergentes, evolución a 90 días y ranking dinámico de colonias.
+Partes de la pantalla:
+Componente
+Función
+Tendencias emergentes
+Chips con la variación reciente de cada tema (por ejemplo «+38 % casas con
+estudio» o «−11 % departamentos nuevos»).
+Evolución de temas · 90 días
+Gráfica de líneas con la trayectoria de los temas principales (julio a septiembre).
+Ranking de colonias
+Tabla reordenable por interés y variación (↑ ↓); se recalcula con cada importación.
+Procedimiento — usar Tendencias en planeación mensual:
+1. Abra «Tendencias» y lea los chips de temas emergentes: identifique al alza y en caída.
+2. Estudie la evolución de 90 días para confirmar si una moda es consistente o un pico pasajero.
+Página 24 de 33
+
+===== PAGE 25 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+3. Recorra el ranking de colonias y fije prioridades de prospección por zona (las flechas ↑ ↓
+muestran el movimiento).
+4. Cruce el resultado con KPIs: traslade las colonias calientes a sus metas diarias de captación.
+5. Exporte el reporte completo para la planeación mensual (sección 8).
+Ejemplo práctico:
+En la planeación de septiembre, el ranking muestra a San Mateo Centro subiendo 5 posiciones y el chip
+«+25 % crédito Fovissste» en alza. El coordinador concentra la captación de la semana en esa colonia
+y prepara una charla de crédito Fovissste con el prestamista del directorio de Alianzas estratégicas.
+Buenas prácticas:
+ Lea los 90 días completos antes de concluir: los extremos de la serie tienen poca historia detrás.
+ El ranking cambia con cada importación: si va a citar posiciones, exporte ese día la vista.
+ Combine Tendencias con Inteligencia de negocio para dimensionar oferta y precio de cada colonia
+emergente.
+Página 25 de 33
+
+===== PAGE 26 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+8. Exportación de resultados
+Los espacios Analítica / Insights y Tendencias exponen exportaciones reutilizables: de la vista actual o
+del reporte completo, en seis formatos. El resto del dashboard comparte los mismos botones de
+exportación rápida.
+ Figura 12. Exportaciones: formatos disponibles e historial de trabajos (export_history).
+Formato
+Contenido
+Uso recomendado
+CSV
+Datos estructurados en UTF-8 del conjunto seleccionado.
+Cruces en Excel, Python o Power
+BI.
+Excel
+Libro con varias hojas: resumen, preguntas, discusiones,
+sentimiento, temas, preocupaciones, tendencias, colonias y
+datos crudos.
+Análisis y presentación interna.
+PDF
+Reporte ejecutivo con filtros activos, tablas, gráfica de
+sentimiento, tendencias y las secciones de IA (Datos /
+Interpretación / Oportunidad).
+Comunicar a dirección o clientes.
+JSON
+Secciones de analítica estructuradas más los metadatos de
+filtros aplicados.
+Sistemas y automatización.
+PNG
+La gráfica real de sentimiento como imagen.
+Insertar en presentaciones.
+SVG
+La misma gráfica en formato vectorial.
+Publicación y edición de calidad.
+8.1 Procedimiento general
+Página 26 de 33
+
+===== PAGE 27 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+1. Aplique los filtros globales y, en Analítica, el periodo que quiera documentar.
+2. Elija el alcance: la vista actual o el reporte completo.
+3. Presione el botón del formato (CSV, Excel, PDF, JSON, PNG o SVG).
+4. Descargue el archivo: con el dataset local actual la descarga es inmediata.
+5. Verifique el historial: el trabajo aparece en la tabla export_history y en el panel «Historial de
+exportaciones».
+8.2 Nombres de archivo y destino
+Los archivos se escriben en data/exports con nombres descriptivos que combinan el contenido, la zona
+y el periodo, por ejemplo:
+data/exports/real-estate-intelligence-metepec-last-30-days.pdf
+data/exports/analytics-edomex-jul-sep.xlsx
+data/exports/trends-neighborhoods.csv
+NOTA: PNG y SVG exportan la gráfica de sentimiento real, no capturas de pantalla de la ventana. En
+exportaciones grandes futuras se podrá interponer una cola de trabajos sin cambiar la forma de usar estos
+botones; hoy las descargas son inmediatas.
+Buenas prácticas:
+ Registre en el nombre del comité o reunión el archivo PDF que usó; así podrá reconstruir qué datos
+vio cada persona.
+ Para series comparables, exporte siempre con el mismo periodo (por ejemplo «últimos 30 días»).
+ El JSON conserva los metadatos de filtros: es la mejor fuente si alguien cuestiona un número
+presentado.
+Página 27 de 33
+
+===== PAGE 28 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+9. Gestión de la información
+9.1 ¿Dónde se guarda mi trabajo?
+Dato que capturo
+Tabla
+¿Quién la crea?
+Notas de seguimiento
+property_followups
+Primer lanzamiento del dashboard
+Contactos de alianzas
+alliance_contacts
+Primer lanzamiento del dashboard
+Registros KPI
+kpi_entries
+Primer lanzamiento del dashboard
+Palabras clave y coincidencias
+monitoring_alerts
+Primer lanzamiento del dashboard
+Exportaciones
+export_history
+Primer uso de exportaciones
+Todo lo que captura en el dashboard vive en PostgreSQL; sobrevive a los reinicios de la aplicación. Si su
+organización requiere respaldo, solicítelo al administrador de la base de datos (el contenedor local usa
+el volumen de Docker mexico-property-db).
+9.2 Datos reales frente a datos de demostración
+La capa de analítica está aislada tras analytics_data.py. Cuando la tabla community_content está vacía,
+la interfaz utiliza datos de demostración deterministas —con una etiqueta visible en pantalla— para
+que pueda aprender a usar las funciones. En cuanto se importa contenido comunitario autorizado, la
+analítica se construye desde PostgreSQL.
+ADVERTENCIA: Los datos de demostración existen para capacitación y pruebas. Nunca los presente como
+estadística del mercado; verifique siempre la etiqueta de origen antes de exportar un reporte.
+9.3 Importar contenido comunitario autorizado
+1. Obtenga una exportación autorizada (API oficial, feed permitido, condición de socio o
+exportación revisada).
+2. Coloque el archivo JSON en data/raw/<source_key>.json, donde source_key corresponde a un
+registro de community_sources.json.
+3. Revise que los registros respeten el contrato de community_content_schema.json (post_id,
+content_type, title, body, source_url, state, municipality…).
+4. Ejecute el pipeline: ./run_pipeline.sh (o los comandos ingest_sources.py e import_to_postgres.py).
+5. Verifique que los registros aparecen en data/export/community_content.csv y en la tabla
+community_content.
+Página 28 de 33
+
+===== PAGE 29 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+[
+  {
+    "post_id": "approved-post-1",
+    "content_type": "forum_posts",
+    "title": "Título de discusión pública",
+    "body": "Contenido entregado mediante exportación autorizada",
+    "source_url": "https://example.org/public/thread/1",
+    "state": "Estado de Mexico",
+    "municipality": "Metepec",
+    "asking_price": 3500000,
+    "extracted_keywords": ["Infonavit", "venta"]
+  }
+]
+ADVERTENCIA: No use contenido sintético ni sin revisar en importaciones de producción. El nombre del
+archivo debe coincidir con un source_key del registro community_sources.json.
+Página 29 de 33
+
+===== PAGE 30 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+10. Solución de problemas frecuentes
+Síntoma
+Causa probable
+Solución
+El navegador no abre
+localhost:8501
+La aplicación Streamlit no está
+corriendo o el puerto está
+ocupado.
+Revise la terminal donde ejecutó streamlit run.
+Cambie de puerto con --server.port 8502 y
+abra esa dirección.
+«No hay datos que mostrar»
+en Propiedades
+El pipeline no se ejecutó o
+data/raw está vacío.
+Ejecute ./run_pipeline.sh (o run_pipeline.ps1) y
+confirme con python query_properties.py.
+Error de conexión a
+PostgreSQL
+El contenedor está detenido o el
+.env no coincide.
+docker start mexico-property-db y verifique las
+cinco variables de POSTGRES_* en .env.
+Analítica muestra «datos de
+demostración»
+La tabla community_content está
+vacía.
+Importe una exportación autorizada (sección
+9.3); la etiqueta desaparecerá al reconstruir la
+analítica.
+Una exportación falla
+Sin permisos de escritura en
+data/exports o disco lleno.
+Cree la carpeta data/exports, verifique
+permisos y reintente; el trabajo fallido no se
+registra como completado.
+Mis notas o contactos no se
+guardan
+La conexión a la base se perdió
+durante la captura.
+Compruebe el contenedor Docker y recapture;
+antes de cerrar la pestaña confirme que la fila
+aparece.
+Una tabla apareció vacía
+tras filtrar
+Filtros globales demasiado
+restrictivos.
+Regrese los tres filtros a «Todos» y vuelva a
+acotar uno por uno.
+Las etiquetas de los
+módulos están en inglés
+Es el comportamiento
+documentado del proyecto.
+Use la tabla de la sección 6 como traductor; las
+funciones son idénticas.
+¿Puedo compartir el
+dashboard en mi red local?
+Streamlit escucha también en la
+IP de red (Network URL).
+Comparta la Network URL solo dentro de la red
+de la empresa; no exponga el servicio a
+internet sin autenticación.
+Página 30 de 33
+
+===== PAGE 31 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Anexo A. Comandos y scripts complementarios
+El dashboard se apoya en scripts de línea de comandos del pipeline. Estos son los que un usuario
+avanzado necesitará conocer:
+Comando
+Función
+./run_pipeline.sh · ./run_pipeline.ps1
+Todo-en-uno: contenedor PostgreSQL, esquema, entorno virtual,
+ingesta e importación.
+python ingest_sources.py
+Ingesta, normalización y deduplicación desde data/raw hacia CSV en
+data/export.
+python import_to_postgres.py
+Importa los CSV normalizados a PostgreSQL.
+python query_properties.py
+Resumen rápido en terminal: conteos y rangos de precio por fuente.
+python summarize_properties.py
+Exporta data/export/property_summary.csv.
+python market_dashboard.py
+Dashboards CSV agrupados por ciudad, tipo de propiedad y estado +
+banda de precio.
+python -m unittest discover -s tests -v
+Pruebas de las transformaciones del pipeline.
+streamlit run streamlit_app.py
+Lanza este dashboard interactivo.
+A.1 Filtros del market dashboard (CSV)
+market_dashboard.py acepta filtros opcionales y produce archivos con nombre distinto para cada
+combinación:
+python market_dashboard.py --state "Ciudad de México"
+python market_dashboard.py --min-price 5000000 --max-price 10000000
+python market_dashboard.py --state "Ciudad de México" --min-price 3000000 --max-price 15000000
+ Salidas sin filtro: data/export/market_dashboard_by_city.csv,
+market_dashboard_by_property_type.csv y market_dashboard_by_state_and_price_band.csv.
+ Salidas filtradas: nombres propios como market_dashboard_ciudad_de_mexico_3m_15m_by_city.csv
+(el archivo de estado + banda de precio es el más útil para segmentar mercado y gama).
+ Los rangos inválidos (precios negativos o mínimo mayor que máximo) se rechazan; sin coincidencias
+se generan archivos con solo encabezados y un aviso.
+Página 31 de 33
+
+===== PAGE 32 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Anexo B. Glosario
+Término
+Significado
+Banda (rango) de precio
+Tramo de precios usado como filtro de mercado (por ejemplo $3M–$15M).
+Community content
+Contenido comunitario autorizado: foros, preguntas, discusiones, comentarios y
+publicaciones sociales o de video con base legal de acceso.
+Deduplicación
+Eliminación de registros repetidos durante la ingesta.
+Demo data
+Datos de demostración deterministas que la analítica muestra cuando no hay
+contenido comunitario importado; siempre van etiquetados.
+Espacio de trabajo
+(workspace)
+Cada módulo del selector de la barra lateral del dashboard.
+Exportación autorizada
+Archivo entregado por API oficial, feed permitido, convenio de socio o revisión
+documental, válido para importar.
+Insight (tarjeta de IA)
+Lectura asistida en tres partes: Datos, Interpretación y Oportunidad.
+KPI
+Indicador clave de desempeño; aquí: captaciones, citas, llamadas y avances de
+negociación.
+Normalización
+Conversión de datos crudos al esquema común del proyecto
+(property_schema.json).
+Plusvalía
+Aumento del valor del suelo o la propiedad en una zona a lo largo del tiempo.
+Pipeline
+Cadena de ingesta, normalización e importación (data/raw → CSV → PostgreSQL).
+Sentimiento
+Clasificación del tono de la conversación (positivo, neutral, negativo) a lo largo del
+tiempo.
+source_key
+Identificador de una fuente en el registro (sources.json o community_sources.json);
+debe coincidir con el nombre del archivo en data/raw.
+Workspace selector
+Nombre en inglés del selector de espacios de trabajo en la barra lateral.
+Página 32 de 33
+
+===== PAGE 33 =====
+INSTRUCTIVO DE CAPACITACIÓN · DASHBOARD DE INTELIGENCIA INMOBILIARIA
+USO INTERNO
+Mexico Property Data Project · Instructivo v1.0 · 23 de septiembre de 2026
+Anexo C. Ejercicios y checklist de capacitación
+C.1 Ejercicios prácticos (sesión 5)
+1. Primer arranque. Ejecute run_pipeline, lance el dashboard y verifique que las tablas
+property_followups, alliance_contacts, kpi_entries y monitoring_alerts existen tras el primer inicio.
+Entregable: captura del dashboard abierto.
+2. Rutina de Propiedades. Filtre por Estado de México, tipo Casa y un rango de precio; abra una
+ficha y deje dos notas de seguimiento en días distintos. Entregable: historial de la propiedad con
+dos notas fechadas.
+3. Directorio vivo. Dé de alta un notario y un valuador con zona de cobertura; encuentre ambos
+usando el filtro por perfil.
+4. Semana de KPIs. Capture cinco días de registros (dos por encima de la meta 20+ y tres por
+debajo) e interprete la gráfica de tendencia. Entregable: dos conclusiones escritas.
+5. Alertas y oportunidad. Agregue la palabra clave «Precio reducido», ejecute el escaneo y derive
+una coincidencia a una nota en Propiedades. Entregable: nota con el enlace de la coincidencia.
+6. Reporte ejecutivo. Con filtros activos en Analítica, exporte el PDF, anexe también el CSV del
+mismo conjunto y confirme ambos en export_history. Entregable: los dos archivos y la fila del
+historial.
+C.2 Checklist de competencias
+Marque cada ítem cuando el capacitador lo observe desempeñado sin ayuda:
+ ☐ Inicia y detiene el dashboard correctamente (incluido Ctrl+C).
+☐ Explica el flujo data/raw → PostgreSQL → dashboard con sus propias palabras.
+☐ Usa los tres filtros globales y anticipa su efecto en las exportaciones.
+☐ Consulta una ficha de propiedad y registra notas de seguimiento útiles.
+☐ Da de alta y localiza contactos en Alianzas estratégicas por perfil.
+☐ Captura KPIs diarios e interpreta el cumplimiento de metas 20+ / 10+.
+☐ Interpreta los gráficos de Inteligencia de negocio citando mínimo, máximo y promedio.
+☐ Atiende la rutina diaria de Alertas y deriva oportunidades a Propiedades.
+☐ Construye una consulta con site:, intitle: e inurl: y la ejecuta en un buscador público.
+☐ Distingue datos de demostración de datos reales en Analítica.
+☐ Extrae un insight de Tendencias y lo traduce en una acción de captación.
+☐ Exporta PDF y CSV de un mismo conjunto y localiza el trabajo en export_history.
+ Fin del instructivo.
+Página 33 de 33

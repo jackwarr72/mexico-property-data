@@ -1,0 +1,26 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Implement manual data refresh and auto-refresh"
+after = []
+covers = ["FR-11"]
+hitl = false
+description = "Add refresh button in sidebar, implement auto-refresh on configurable interval"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Implement shared global filters across widgets"
+after = [1]
+covers = ["FR-12", "SM-5"]
+hitl = false
+description = "Filters persist in session state and propagate to all widgets in current workspace"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Implement background export jobs with progress tracking"
+after = [1, 2]
+covers = ["FR-13"]
+hitl = false
+description = "Background export jobs with progress bar, status tracking, and file cleanup"

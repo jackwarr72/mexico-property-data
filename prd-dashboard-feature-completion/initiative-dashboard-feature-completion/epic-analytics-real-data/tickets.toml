@@ -1,0 +1,26 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Implement real analytics data from community_content"
+after = []
+covers = ["FR-1"]
+hitl = false
+description = "Replace demo analytics with real aggregations from PostgreSQL community_content table"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Add server-side SQL filtering for analytics"
+after = [1]
+covers = ["FR-2"]
+hitl = false
+description = "Move date range, location, source, intent, and sentiment filters from in-memory Python filtering to SQL queries"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Add loading, empty, and error states for analytics widgets"
+after = [1]
+covers = ["FR-3", "SM-2"]
+hitl = false
+description = "All analytics widgets display appropriate loading, empty, and error states with retry capability"

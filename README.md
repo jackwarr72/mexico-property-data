@@ -142,10 +142,35 @@ The state + price band file is especially useful for filtering by both market se
 
 ## Interactive dashboard
 
-Start the Streamlit dashboard after PostgreSQL is running and the pipeline has imported data:
-```bash
-streamlit run streamlit_app.py
+### Windows PowerShell
+
+Desde la raíz del proyecto, ejecuta:
+
+```powershell
+./run_pipeline.ps1
+./.venv/Scripts/python.exe -m streamlit run streamlit_app.py
 ```
+
+El primer comando inicia PostgreSQL en Docker, aplica el esquema, crea o actualiza el entorno virtual, instala las dependencias, ingiere los archivos de `data/raw` e importa los datos. El segundo comando lanza el dashboard y normalmente lo deja disponible en `http://localhost:8501`.
+
+Si PostgreSQL y los datos ya están preparados, solo necesitas lanzar el dashboard:
+
+```powershell
+./.venv/Scripts/python.exe -m streamlit run streamlit_app.py
+```
+
+### macOS/Linux
+
+```bash
+./run_pipeline.sh
+./.venv/bin/python -m streamlit run streamlit_app.py
+```
+
+### Configuración opcional
+
+El dashboard usa por defecto PostgreSQL en `localhost:5432`, con base de datos `property_data`, usuario `postgres` y contraseña `postgres`. Para cambiar estos valores, configura las variables `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER` y `POSTGRES_PASSWORD` en un archivo `.env` en la raíz del proyecto.
+
+Para detener el dashboard, presiona `Ctrl+C` en la terminal donde está ejecutándose. PostgreSQL permanece disponible en Docker para el siguiente lanzamiento.
 
 The dashboard provides selectors for state, property type, and price band, plus summary metrics and filtered tables.
 

@@ -1,0 +1,17 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Implement property review status system"
+after = []
+covers = ["FR-9", "SM-3"]
+hitl = false
+description = "Add review status column to properties table, add status filter in sidebar, default new properties to 'new' status"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Implement price change history tracking"
+after = [1]
+covers = ["FR-10"]
+hitl = false
+description = "Detect price changes, record in price_history table, flag changes in property detail view"

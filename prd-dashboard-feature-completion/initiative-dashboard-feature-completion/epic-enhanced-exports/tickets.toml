@@ -1,0 +1,26 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Improve PDF export with visual identity and vector charts"
+after = []
+covers = ["FR-4"]
+hitl = false
+description = "Enhance PDF export with proper visual identity, pagination, fonts, vector SVG charts instead of screenshots"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Add per-widget table export with active filters"
+after = [1]
+covers = ["FR-5"]
+hitl = false
+description = "Each analytics widget can export its visible filtered table as CSV with active filters applied"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Add GeoJSON export format for geographic data"
+after = [1]
+covers = ["FR-6"]
+hitl = false
+description = "Add GeoJSON export for neighborhood rankings and location activity data"

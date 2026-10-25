@@ -1,0 +1,17 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Implement mobile-friendly touch targets and responsive layout"
+after = []
+covers = ["FR-7", "SM-1", "SM-6"]
+hitl = false
+description = "Ensure all interactive elements meet 44px minimum touch target, tabs stack vertically, selectboxes work on touch"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Optimize mobile export workflow"
+after = [1]
+covers = ["FR-8"]
+hitl = false
+description = "Export controls and download buttons are optimized for mobile interactions"
